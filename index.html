@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>林陽 (Lin Yang) | 個人品牌與即時時光空間</title>
+  <meta name="description" content="林陽 (Lin Yang) 的個人自我介紹網站。融合現代數位美學、全端技術與動態即時時鐘系統。">
+  <meta name="keywords" content="林陽, Lin Yang, 個人介紹, 軟體工程師, 數位產品, 前端開發, 即時時間">
+  <meta property="og:title" content="林陽 (Lin Yang) - 個人自我介紹網站">
+  <meta property="og:description" content="你好，我是林陽！探索我的技術旅程、專案經歷與即時時光面板。">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Background Gradients & Glows -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+  <div class="grid-overlay"></div>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-symbol">✦</span>
+        <span class="logo-name">林陽</span>
+        <span class="logo-en">Lin Yang</span>
+      </a>
+
+      <div class="nav-menu" id="navMenu">
+        <a href="#hero" class="nav-link active">首頁</a>
+        <a href="#time-dashboard" class="nav-link">即時時光</a>
+        <a href="#about" class="nav-link">關於林陽</a>
+        <a href="#skills" class="nav-link">專業技能</a>
+        <a href="#projects" class="nav-link">精選專案</a>
+        <a href="#contact" class="nav-link">與我聯繫</a>
+      </div>
+
+      <div class="nav-actions">
+        <button id="clockFormatBtn" class="format-btn" title="切換 12/24 小時制">
+          <span id="formatText">24H</span>
+        </button>
+        <a href="#contact" class="nav-cta-btn">即刻交流</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="切換選單">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        <!-- Live Status Pill -->
+        <div class="status-badge-container">
+          <div class="status-badge">
+            <span class="pulse-dot"></span>
+            <span id="greetingContext">正在同步時區...</span>
+            <span class="badge-divider">|</span>
+            <span class="timezone-badge" id="timezoneDisplay">GMT+8 台北</span>
+          </div>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="greeting-prefix" id="timeGreeting">你好，我是</span>
+          <span class="name-gradient">林陽</span>
+          <span class="name-en">Lin Yang</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          熱愛技術探索的<strong>全端工程師</strong>與<strong>數位體驗創作者</strong>。<br class="desktop-only">
+          專注於將複雜問題轉化為簡潔、優雅且高效的產品解決方案。
+        </p>
+
+        <!-- Live Clock Hero Card -->
+        <div class="hero-clock-card" id="heroClockCard">
+          <div class="clock-card-header">
+            <div class="clock-indicator">
+              <span class="blinking-dot"></span>
+              <span>LIVE CLOCK • 現在時間</span>
+            </div>
+            <div class="clock-date-tag" id="currentDateLong">載入中...</div>
+          </div>
+
+          <div class="digital-time-display">
+            <div class="time-digit-group">
+              <span class="time-number" id="clockHours">00</span>
+              <span class="time-label">HOURS</span>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-digit-group">
+              <span class="time-number" id="clockMinutes">00</span>
+              <span class="time-label">MINUTES</span>
+            </div>
+            <span class="time-separator">:</span>
+            <div class="time-digit-group">
+              <span class="time-number highlight" id="clockSeconds">00</span>
+              <span class="time-label">SECONDS</span>
+            </div>
+            <div class="time-period-tag" id="clockPeriod" style="display: none;">AM</div>
+          </div>
+
+          <!-- Progress of Day -->
+          <div class="day-progress-wrapper">
+            <div class="day-progress-info">
+              <span id="dayProgressLabel">今日已度過</span>
+              <span id="dayProgressPercent" class="progress-val">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="dayProgressBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="hero-actions">
+          <a href="#about" class="btn btn-primary">
+            <span>探索自我介紹</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <button class="btn btn-secondary" id="copyEmailBtn" data-email="linyang.creative@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copyEmailText">複製 Email 聯繫</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Visual / Avatar Card -->
+      <div class="hero-visual">
+        <div class="visual-card-wrapper" id="visualCard">
+          <div class="visual-card-inner">
+            <!-- Modern Stylized Avatar Frame -->
+            <div class="avatar-frame">
+              <div class="avatar-ring-outer"></div>
+              <div class="avatar-ring-inner"></div>
+              <div class="avatar-graphic">
+                <svg class="avatar-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="gradYang" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#38bdf8" />
+                      <stop offset="50%" stop-color="#6366f1" />
+                      <stop offset="100%" stop-color="#ec4899" />
+                    </linearGradient>
+                    <linearGradient id="clothGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#1e293b" />
+                      <stop offset="100%" stop-color="#0f172a" />
+                    </linearGradient>
+                  </defs>
+                  <!-- Background Glow Circle -->
+                  <circle cx="100" cy="100" r="95" fill="#0b1329" stroke="url(#gradYang)" stroke-width="3"/>
+                  <!-- Glowing Hexagon / Geometry -->
+                  <polygon points="100,20 170,60 170,140 100,180 30,140 30,60" fill="none" stroke="rgba(99, 102, 241, 0.25)" stroke-width="2"/>
+                  <!-- Body & Portrait Stylized Vector -->
+                  <path d="M45,175 Q100,145 155,175 L155,195 L45,195 Z" fill="url(#clothGrad)" stroke="rgba(255,255,255,0.15)"/>
+                  <path d="M70,145 Q100,165 130,145" fill="none" stroke="url(#gradYang)" stroke-width="2.5"/>
+                  <!-- Face -->
+                  <circle cx="100" cy="95" r="42" fill="#fed7aa"/>
+                  <!-- Hair -->
+                  <path d="M58,95 Q60,50 100,48 Q140,50 142,95 Q135,65 100,62 Q65,65 58,95 Z" fill="#0f172a"/>
+                  <path d="M60,82 Q80,55 100,60 Q130,55 140,82" fill="#1e293b"/>
+                  <!-- Glasses Frame -->
+                  <rect x="74" y="85" width="22" height="16" rx="4" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+                  <rect x="104" y="85" width="22" height="16" rx="4" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+                  <line x1="96" y1="92" x2="104" y2="92" stroke="#0f172a" stroke-width="2.5"/>
+                  <!-- Eyes -->
+                  <circle cx="85" cy="93" r="2.5" fill="#0f172a"/>
+                  <circle cx="115" cy="93" r="2.5" fill="#0f172a"/>
+                  <!-- Smile -->
+                  <path d="M90,115 Q100,125 110,115" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Code / Star Badge Floating -->
+                  <circle cx="160" cy="45" r="16" fill="#6366f1"/>
+                  <text x="160" y="50" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">陽</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="visual-info-tag">
+              <div class="visual-name">林陽 • Lin Yang</div>
+              <div class="visual-role">創意與技術架構實踐者</div>
+            </div>
+
+            <!-- Floating Info Chips -->
+            <div class="floating-chip chip-1">
+              <span class="chip-icon">⚡</span>
+              <span>100% 熱忱投入</span>
+            </div>
+            <div class="floating-chip chip-2">
+              <span class="chip-icon">🌏</span>
+              <span id="chipLocation">台北，GMT+8</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL-TIME TIME DASHBOARD -->
+    <section class="section time-dashboard-section" id="time-dashboard">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-eyebrow">CHRONO DASHBOARD</div>
+          <h2 class="section-title">即時時光面板</h2>
+          <p class="section-desc">時間是宇宙中最公平且珍貴的維度。此面板與您的本地時間精確同步。</p>
+        </div>
+
+        <div class="time-grid">
+          <!-- Main Clock Card -->
+          <div class="dashboard-card primary-time-card">
+            <div class="card-tag">本地精準時鐘</div>
+            <div class="main-clock-display">
+              <span class="giant-digit" id="dashHours">00</span>
+              <span class="giant-colon">:</span>
+              <span class="giant-digit" id="dashMinutes">00</span>
+              <span class="giant-colon">:</span>
+              <span class="giant-digit" id="dashSeconds">00</span>
+              <span class="dash-ampm" id="dashAmpm"></span>
+            </div>
+            <div class="dash-date-line">
+              <span id="dashFullDate">2026 年 9 月 16 日 星期三</span>
+              <span class="time-zone-tag">UTC+08:00</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Period & Greeting Card -->
+          <div class="dashboard-card period-card">
+            <div class="card-tag">時段與身心狀態</div>
+            <div class="period-icon-wrap" id="periodIcon">☀️</div>
+            <h3 class="period-title" id="periodTitle">活力工作時段</h3>
+            <p class="period-message" id="periodDescription">現在是林陽專注思考、編寫代碼與架構設計的黃金時段。</p>
+            <div class="period-meta">
+              <span class="meta-label">建議狀態：</span>
+              <span class="meta-val" id="periodAdvice">深度工作 • 創造價值</span>
+            </div>
+          </div>
+
+          <!-- Global Clocks Card -->
+          <div class="dashboard-card world-time-card">
+            <div class="card-tag">跨時區即時聯動</div>
+            <div class="world-cities-list">
+              <div class="city-row">
+                <div class="city-info">
+                  <span class="city-name">台北 / Taipei</span>
+                  <span class="city-tz">GMT+8 (林陽所在地)</span>
+                </div>
+                <div class="city-time" id="worldTaipei">--:--:--</div>
+              </div>
+              <div class="city-row">
+                <div class="city-info">
+                  <span class="city-name">東京 / Tokyo</span>
+                  <span class="city-tz">GMT+9 (JST)</span>
+                </div>
+                <div class="city-time" id="worldTokyo">--:--:--</div>
+              </div>
+              <div class="city-row">
+                <div class="city-info">
+                  <span class="city-name">倫敦 / London</span>
+                  <span class="city-tz">GMT+1 (BST)</span>
+                </div>
+                <div class="city-time" id="worldLondon">--:--:--</div>
+              </div>
+              <div class="city-row">
+                <div class="city-info">
+                  <span class="city-name">舊金山 / San Francisco</span>
+                  <span class="city-tz">GMT-7 (PDT)</span>
+                </div>
+                <div class="city-time" id="worldSF">--:--:--</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section about-section" id="about">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-eyebrow">WHO IS LIN YANG</div>
+          <h2 class="section-title">關於林陽</h2>
+          <p class="section-desc">用技術構築想像，以美感雕琢體驗。</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-story-card">
+            <h3 class="story-title">你好！我是林陽 (Lin Yang)</h3>
+            <p class="story-paragraph">
+              我是一名對數位世界充滿好奇與熱忱的軟體創作者。我深信優秀的數位產品不僅需要堅實穩固的架構邏輯，更需要兼顧流暢自然、令人愉悅的視覺美感與人機互動體驗。
+            </p>
+            <p class="story-paragraph">
+              從全端系統開發、現代響應式前端體驗，到自動化工具與智慧化流程整合，我都持續探詢最佳實踐。我的目標是將每一次點擊、每一次互動，都打磨得恰到好處。
+            </p>
+            <div class="personal-highlights">
+              <div class="highlight-item">
+                <div class="hl-num">01</div>
+                <div class="hl-text">
+                  <strong>嚴謹與敏捷並存</strong>
+                  <span>堅持乾淨整潔的程式碼架構與模組化維護</span>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="hl-num">02</div>
+                <div class="hl-text">
+                  <strong>追求極致體驗</strong>
+                  <span>微動畫、高對比易讀性與流暢直覺的使用者旅程</span>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="hl-num">03</div>
+                <div class="hl-text">
+                  <strong>終身探索思維</strong>
+                  <span>擁抱新技術浪潮，轉化為解決真實問題的武器</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats & Philosophy Sidebar -->
+          <div class="about-stats-column">
+            <div class="stat-box">
+              <div class="stat-big-number">100<span class="stat-plus">%</span></div>
+              <div class="stat-label">追求細節與品質的堅持</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-big-number">24<span class="stat-plus">/7</span></div>
+              <div class="stat-label">隨時保持對新思維的好奇心</div>
+            </div>
+            <div class="stat-box highlight-box">
+              <div class="quote-symbol">“</div>
+              <p class="quote-content">「時間是不可逆的畫布，每一行代碼與設計，都是為世界留下的獨特色彩。」</p>
+              <div class="quote-author">— 林陽 Lin Yang</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section class="section skills-section" id="skills">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-eyebrow">TECH & CAPABILITIES</div>
+          <h2 class="section-title">專業技能與工具箱</h2>
+          <p class="section-desc">結合前瞻技術與工程標準，涵蓋從設計構思到雲端部署的完整鏈路。</p>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Skill Card 1 -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <div class="cat-icon frontend-icon">🎨</div>
+              <div>
+                <h3 class="cat-title">前端開發與互動體驗</h3>
+                <span class="cat-subtitle">Frontend & UI Engineering</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <span class="chip">HTML5 / 語義化</span>
+              <span class="chip">現代 CSS3 & 玻璃擬態</span>
+              <span class="chip">JavaScript (ES6+)</span>
+              <span class="chip">TypeScript</span>
+              <span class="chip">React / Next.js</span>
+              <span class="chip">Vue.js / Vite</span>
+              <span class="chip">響應式 RWD 設計</span>
+              <span class="chip">Canvas & SVG 動畫</span>
+            </div>
+          </div>
+
+          <!-- Skill Card 2 -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <div class="cat-icon backend-icon">⚙️</div>
+              <div>
+                <h3 class="cat-title">後端邏輯與系統架構</h3>
+                <span class="cat-subtitle">Backend & Infrastructure</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <span class="chip">Node.js / Express</span>
+              <span class="chip">RESTful API 設計</span>
+              <span class="chip">PostgreSQL & MySQL</span>
+              <span class="chip">MongoDB / NoSQL</span>
+              <span class="chip">Docker 容器化</span>
+              <span class="chip">微服務與架構思維</span>
+              <span class="chip">身分驗證與資安規範</span>
+            </div>
+          </div>
+
+          <!-- Skill Card 3 -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <div class="cat-icon design-icon">✨</div>
+              <div>
+                <h3 class="cat-title">產品思維與視覺設計</h3>
+                <span class="cat-subtitle">Product & Interface Design</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <span class="chip">Figma 介面原型</span>
+              <span class="chip">Design System 建立</span>
+              <span class="chip">使用者體驗旅程分析</span>
+              <span class="chip">無障礙體驗 (a11y)</span>
+              <span class="chip">資訊架構梳理</span>
+              <span class="chip">微互動 (Micro-interaction)</span>
+            </div>
+          </div>
+
+          <!-- Skill Card 4 -->
+          <div class="skill-category-card">
+            <div class="category-header">
+              <div class="cat-icon tool-icon">🚀</div>
+              <div>
+                <h3 class="cat-title">工作流與現代化工具</h3>
+                <span class="cat-subtitle">DevOps & Productivity</span>
+              </div>
+            </div>
+            <div class="skill-chips">
+              <span class="chip">Git / GitHub Flow</span>
+              <span class="chip">CI/CD 自動化管道</span>
+              <span class="chip">VS Code 高效工作流</span>
+              <span class="chip">Webpack / Vite 建構</span>
+              <span class="chip">效能監控與優化</span>
+              <span class="chip">敏捷開發與專案管理</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED PROJECTS SECTION -->
+    <section class="section projects-section" id="projects">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="section-eyebrow">PORTFOLIO SHOWCASE</div>
+          <h2 class="section-title">精選專案與代表作</h2>
+          <p class="section-desc">透過實際作品展現林陽對程式碼品質與產品價值的持續實踐。</p>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1 -->
+          <div class="project-card">
+            <div class="project-preview preview-1">
+              <div class="preview-badge">Featured</div>
+              <div class="project-graphic-symbol">⏰</div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">動態即時系統</span>
+                <span class="ptag">Vanilla JS</span>
+                <span class="ptag">Glassmorphism</span>
+              </div>
+              <h3 class="project-title">即時數位時光與個人品牌入口</h3>
+              <p class="project-desc">
+                結合實時本地時鐘運算、多時區連動、晝夜時段情境問候，以及高階毛玻璃擬態視覺的旗艦個人首頁。
+              </p>
+              <div class="project-links">
+                <span class="status-indicator">● 目前運行中</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card">
+            <div class="project-preview preview-2">
+              <div class="preview-badge">Productivity</div>
+              <div class="project-graphic-symbol">⚡</div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">全端架構</span>
+                <span class="ptag">REST API</span>
+                <span class="ptag">高效管理</span>
+              </div>
+              <h3 class="project-title">全方位任務靈感看板 (FlowBoard)</h3>
+              <p class="project-desc">
+                以流暢拖拉與即時狀態同步為核心的敏捷工作台，協助團隊在直覺介面中掌握工作進度與靈感點子。
+              </p>
+              <div class="project-links">
+                <span class="view-link">探索架構設計 ↗</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card">
+            <div class="project-preview preview-3">
+              <div class="preview-badge">Creative</div>
+              <div class="project-graphic-symbol">📊</div>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                <span class="ptag">資料視覺化</span>
+                <span class="ptag">Canvas / SVG</span>
+                <span class="ptag">即時分析</span>
+              </div>
+              <h3 class="project-title">多維數據互動可視化儀表板</h3>
+              <p class="project-desc">
+                支援海量即時資料流串接的視覺化分析工具，提供流暢的縮放切換、趨勢預測與高解析度圖表輸出。
+              </p>
+              <div class="project-links">
+                <span class="view-link">查看互動範例 ↗</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="section contact-section" id="contact">
+      <div class="section-container">
+        <div class="contact-card">
+          <div class="contact-content">
+            <div class="section-eyebrow">LET'S CONNECT</div>
+            <h2 class="contact-title">想與林陽聊聊新想法？</h2>
+            <p class="contact-desc">
+              無論是技術交流、專案合作、或是探索任何創新的可能性，都非常歡迎隨時與我聯繫！
+            </p>
+
+            <div class="contact-methods">
+              <div class="method-box" id="clickCopyEmail">
+                <div class="method-icon">📧</div>
+                <div class="method-details">
+                  <div class="method-title">電子信箱 (點擊複製)</div>
+                  <div class="method-val">linyang.creative@gmail.com</div>
+                </div>
+                <div class="copy-badge">點擊複製</div>
+              </div>
+
+              <div class="social-links-row">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-pill">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  <span>GitHub</span>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-pill">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="#" class="social-pill" id="quickMsgTrigger">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <span>快速留言</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Quick Send Form -->
+          <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); window.handleSendMessage();">
+            <h3 class="form-title">給林陽留下一則訊息</h3>
+            <div class="form-group">
+              <label for="senderName">您的稱呼</label>
+              <input type="text" id="senderName" class="form-input" placeholder="例如：Alex / 訪客" required>
+            </div>
+            <div class="form-group">
+              <label for="senderEmail">電子信箱</label>
+              <input type="email" id="senderEmail" class="form-input" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+              <label for="senderMsg">交流訊息</label>
+              <textarea id="senderMsg" rows="3" class="form-input" placeholder="說說你想聊的主題或合作點子..." required></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="sendBtn">
+              <span>發送即時留言</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+            <div class="form-notice" id="formNotice"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <span class="footer-logo">✦ 林陽 Lin Yang</span>
+        <span class="footer-copy">© 2026 林陽. 依當前時光打造，靈感永不打烊。</span>
+      </div>
+      <div class="footer-meta">
+        <span class="live-clock-pill">即時時間：<span id="footerClock">--:--:--</span></span>
+        <a href="#hero" class="back-to-top" title="回到頂部">↑ 回到頁首</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastNotification">
+    <span class="toast-icon">✓</span>
+    <span class="toast-msg" id="toastMessage">已複製到剪貼簿！</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
